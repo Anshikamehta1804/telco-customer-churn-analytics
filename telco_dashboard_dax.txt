@@ -1,0 +1,46 @@
+-- =====================================================================
+-- Project: Telco Customer Churn & Retention Dashboard (Exact Dashboard DAX Measures)
+-- Author: Anshika Mehta
+-- Description: Comprehensive DAX measures powering all KPIs and charts 
+--              in the executive Power BI dashboard.
+-- =====================================================================
+
+-- 1. BASE COUNT MEASURES
+Total Customers = COUNT(customers[customerID])
+
+Churned Customers = CALCULATE([Total Customers], customers[Churn] = "Yes")
+
+Retained Customers = CALCULATE([Total Customers], customers[Churn] = "No")
+
+
+-- 2. PERCENTAGE & RATE MEASURES
+Churn Rate % = DIVIDE([Churned Customers], [Total Customers], 0)
+
+Retention Rate % = DIVIDE([Retained Customers], [Total Customers], 0)
+
+-- Monthly Churn Rate (Adjusted for temporal scaling as displayed on card)
+Monthly Churn Rate = DIVIDE([Churned Customers], [Total Customers] * 12, 0)
+
+
+-- 3. AVERAGE & STATISTICAL MEASURES
+Avg Customer Tenure = AVERAGE(customers[tenure])
+
+Avg Monthly Charges = AVERAGE(customers[MonthlyCharges])
+
+Total Revenue Loss = CALCULATE(SUM(customers[TotalCharges]), customers[Churn] = "Yes")
+
+
+-- 4. PERIOD-OVER-PERIOD COMPARISON MEASURES (MoM / YoY Variance)
+-- Note: Requires a standard Calendar table ('Calendar'[Date]) related to customer onboarding/transaction date.
+
+Total Customers PY = CALCULATE([Total Customers], SAMEPERIODLASTYEAR('Calendar'[Date]))
+
+Customer Growth % = DIVIDE([Total Customers] - [Total Customers PY], [Total Customers PY], 0)
+
+Churned Customers PY = CALCULATE([Churned Customers], SAMEPERIODLASTYEAR('Calendar'[Date]))
+
+Churned Growth % = DIVIDE([Churned Customers] - [Churned Customers PY], [Churned Customers PY], 0)
+
+Retained Customers PY = CALCULATE([Retained Customers], SAMEPERIODLASTYEAR('Calendar'[Date]))
+
+Retained Growth % = DIVIDE([Retained Customers] - [Retained Customers PY], [Retained Customers PY], 0)
