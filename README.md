@@ -19,7 +19,8 @@ Customer churn is one of the most critical metrics for subscription-based busine
 
 ## 📂 Repository Structure
 ```text
-├── churn_model.py              # Python machine learning pipeline (Random Forest)
-├── telco_churn_analysis.sql    # MySQL database schema, cleaning, and KPI queries
-├── telco_dashboard_exact_dax.txt # Power BI DAX measures script for executive metrics
-└── README.md                   # Project documentation
+├── churn_model.py                   # Python machine learning pipeline (Random Forest)
+├── telco_churn_analysis.sql         # MySQL database schema, cleaning, and KPI queries
+├── telco_dashboard_dax.txt    # Power BI DAX measures script for executive metrics
+├── Power_bi_dashboard_output(2).png # Executive Power BI Dashboard Preview Image
+└── README.md                        # Project documentation
